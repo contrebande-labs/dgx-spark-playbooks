@@ -12,12 +12,17 @@ app = Flask(__name__)
 
 # Get model name from environment variable
 model_name = os.environ.get("MODEL_NAME", "all-MiniLM-L6-v2")
+attn_implementation = os.environ.get("ATTN_IMPL", "eager")
+padding_side = os.environ.get("PADDING_SIDE", "left")
 logger.info(f"Loading model: {model_name}")
 
 # Load model during startup
 start_time = time.time()
 try:
-    model = SentenceTransformer(model_name)
+    model = SentenceTransformer(model_name,
+    trust_remote_code=True,
+    model_kwargs={"attn_implementation": attn_implementation},
+    tokenizer_kwargs={"padding_side": padding_side},)
     logger.info(f"Model loaded in {time.time() - start_time:.2f} seconds")
 except Exception as e:
     logger.error(f"Failed to load model: {e}")
@@ -89,4 +94,4 @@ def embeddings():
         return jsonify({"error": str(e)}), 500
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=int(os.environ.get("PORT", 80))) 
+    app.run(host="0.0.0.0", port=int(os.environ.get("PORT", 8080)))
