@@ -43,6 +43,7 @@
     "@tailwindcss/forms": "latest",
     "@types/d3": "^7.4.3",
     "@types/three": "^0.181.0",
+    "@zilliz/milvus2-sdk-node": "^2.6.3",
     "arangojs": "^10.1.2",
     "autoprefixer": "^10.4.21",
     "axios": "^1.13.1",
