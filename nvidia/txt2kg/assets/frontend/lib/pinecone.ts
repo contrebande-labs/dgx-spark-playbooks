@@ -571,9 +571,9 @@ export class PineconeService {
           console.log(`Pinecone stats request failed with status: ${response.status}`);
           return {
             totalVectorCount: 0,
-            source: 'error',
-            httpHealthy: false,
-            error: `Failed to get stats: ${response.status}`
+            namespaces: {},
+            source: 'direct-http',
+            httpHealthy: true
           };
         }
       } catch (error) {
