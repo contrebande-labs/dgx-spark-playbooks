@@ -8,15 +8,15 @@ export class EmbeddingsService {
   private apiUrl: string;
   private modelId: string;
   private static instance: EmbeddingsService;
-  private dimension: number = 768; // Dimension for gte-modernbert-base
+  private dimension: number = 4096; // Dimension for gte-modernbert-base
   private useNvidiaApi: boolean = false;
   private nvidiaApiKey: string = '';
   private nvidiaModel: string = 'nvidia/llama-3.2-nv-embedqa-1b-v2';
   private nvidiaInputType: string = 'query';
 
   private constructor() {
-    this.apiUrl = process.env.EMBEDDINGS_API_URL || 'http://localhost:8000';
-    this.modelId = process.env.EMBEDDINGS_MODEL_ID || 'Alibaba-NLP/gte-modernbert-base';
+    this.apiUrl = process.env.EMBEDDINGS_API_URL || 'http://localhost:8080';
+    this.modelId = process.env.EMBEDDINGS_MODEL_ID || 'nvidia/llama-embed-nemotron-8b';
     
     // Always get NVIDIA API key from environment variables
     this.nvidiaApiKey = process.env.NVIDIA_API_KEY || '';
