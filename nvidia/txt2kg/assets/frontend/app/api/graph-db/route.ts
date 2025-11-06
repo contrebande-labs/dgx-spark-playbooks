@@ -10,7 +10,7 @@ import { GraphDBType } from '@/lib/graph-db-service';
 async function ensureConnection(request?: NextRequest): Promise<GraphDBType> {
   try {
     // Get the preferred database type from settings or request
-    let graphDbType: GraphDBType;
+    let graphDbType: GraphDBType = process.env.GRAPHDB_TYPE === "arangodb" ? "arangodb" : "neo4j";
     
     if (request?.nextUrl.searchParams.has('type')) {
       // Explicitly specified in the request
@@ -38,6 +38,8 @@ async function ensureConnection(request?: NextRequest): Promise<GraphDBType> {
         if (params.has('username')) username = params.get('username') as string;
         if (params.has('password')) password = params.get('password') as string;
       }
+
+      console.log("ensureConnection", uri, username, password)
 
       // Connect to Neo4j instance
       graphDbService.initialize(uri, username, password);
